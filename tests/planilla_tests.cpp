@@ -2,7 +2,7 @@
 
 namespace {
 
-    TEST(Horas_Panilla, Test_Agregar_Empleado){
+    TEST(Planilla_Tests, Test_Agregar_Empleado){
 
     }
 }

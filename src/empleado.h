@@ -3,25 +3,43 @@
 
 #include <string>
 #include <sstream>
+#include <iostream>
+#include <vector>
 
 using namespace std;
 
-class Empleado
+class Empleado // persona
 {
+
+protected:
+
+    istream *streamEntrada;
     int idEmpleado;
     string nombreEmpleado;
     string apellidoEmpleado;
     string emailEmpleado;
     int tipoEmpleado;
     int idSupervisorEmpleado;
-
+    Empleado *supervisor; // el supervisor del empleado puede ser otro empleado
+    vector <Empleado*> lista; // un empleado puede ser supervisor y tener mas empleados a cargo, o no
+     
 public:
-    Empleado();
-    Empleado(int idEmpleadoNuevo, string nombreEmpleadoNuevo, string apellidoEmpleadoNuevo, string emailEmpleadoNuevo, int tipoEmpleadoNuevo, int idSupervisorEmpleadoNuevo);
-    ~Empleado();
-
-    friend istream &operator>>(istream &i, Empleado *empleado);
-    friend ostream &operator<<(ostream &o, const Empleado *empleado);
+    
+    virtual ~Empleado();
+    
+    virtual float calculoPagoNeto() = 0;       
+    void aignarSupervisor(Empleado *supervisorAsignado);
+    void aignarEmpleado(Empleado *empleadoAsignado);
+    
+    virtual vector <Empleado*> ObtenerEmpleados(); 
+    virtual int ObtenerId() = 0;
+    virtual string ObtenerNombre();
+    virtual string ObtenerApellido();
+    virtual string ObtenerCorreo();
+    virtual int ObtenerTipoEmpleado() = 0;
+    virtual int ObtenerIdSupervisor() = 0;  
+    virtual Empleado* ObtenerSupervisor();     
+    
 };
 
 #endif
