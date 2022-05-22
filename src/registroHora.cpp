@@ -5,14 +5,18 @@ using namespace std;
 RegistroHora::RegistroHora(istream *streamRegistro)
 {
     this->streamEntradaRegistroHora = streamRegistro;
-    string linea;
-    getline(*streamEntradaRegistroHora, linea);
-    istringstream stream(linea);
-    stream >> this->idEmpleado >> this->montoPorHora >> this->horasAcumuladas;
+    void GenerarRegistroHora();
 }
 
 RegistroHora::~RegistroHora()
 {
+}
+
+void RegistroHora::GenerarRegistroHora(){
+    string linea;
+    getline(*streamEntradaRegistroHora, linea);
+    istringstream stream(linea);
+    stream >> this->idEmpleado >> this->montoPorHora >> this->horasAcumuladas;
 }
 
 int RegistroHora::ObtenerHorasAcumuladas()
@@ -38,6 +42,6 @@ istream &operator>>(istream &i, RegistroHora *registro)
 
 ostream &operator<<(ostream &o, const RegistroHora *registro)
 {
-    o << ", " << registro->idEmpleado << ", " << registro->montoPorHora << ", " << registro->horasAcumuladas;
+    o << registro->idEmpleado << ", " << registro->montoPorHora << ", " << registro->horasAcumuladas;
     return o;
 }

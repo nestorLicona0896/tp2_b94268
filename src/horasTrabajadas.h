@@ -21,6 +21,7 @@ class HorasTrabajadas {
         RegistroHora* ObtenerRegistro(int id);
         vector <RegistroHora*> ObtenerRegistros();    
         float ObtenerTotal();
+        void GenerarRegistros();
 };
 
 #endif

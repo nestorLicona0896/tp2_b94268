@@ -22,6 +22,7 @@ public:
 
     float ObtenerPagoBruto();
     int ObtenerIdEmpleado();
+    void GenerarRegistroPago();
 };
 
 #endif

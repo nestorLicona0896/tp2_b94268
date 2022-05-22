@@ -39,3 +39,11 @@ int Empleado::ObtenerIdSupervisor() {
 Empleado* Empleado::ObtenerSupervisor() {
     return this->supervisor;
 }
+
+void Empleado::aignarSupervisor(Empleado *supervisorAsignado){
+    this->supervisor = supervisorAsignado;
+}
+
+void Empleado::aignarEmpleado(Empleado *empleadoAsignado){
+    this->lista.push_back(empleadoAsignado);
+}  

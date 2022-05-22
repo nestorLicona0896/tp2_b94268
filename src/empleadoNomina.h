@@ -11,7 +11,6 @@ class EmpleadoNomina : public Empleado // tipo 2
 
 float salarioBruto;
 RegistroPago *registroPagoBruto;
-
         
 public:
     
@@ -22,6 +21,7 @@ public:
     void AgregarRegistroPago(RegistroPago *registro);
     virtual float calculoPagoNeto();  
     RegistroPago* ObtenerRegistroPago();
+    void GenerarEmpleadoNomina();
       
     friend istream &operator >> (istream &i, EmpleadoNomina *empleadoNomina);
     friend ostream &operator << (ostream &o, const EmpleadoNomina *empleadoNomina);   

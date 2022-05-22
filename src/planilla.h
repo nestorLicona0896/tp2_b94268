@@ -3,7 +3,10 @@
 
 #include <map>
 #include <vector>
+
 #include "empleado.h"
+#include "empleadoNomina.h"
+#include "empleadoPorHora.h"
 #include "horasTrabajadas.h"
 #include "nomina.h"
 
@@ -18,8 +21,8 @@ class Planilla { // CostoPlanilla
     Empleado *director; // raiz
     
     //(-1)
-    vector <Nomina> *laNomina; // lista de registros para los empleados por nomina
-    vector <HorasTrabajadas> *lasHorasTrabajadas;   // lista de registro para los empleados cnontratados por hora
+    Nomina *laNomina; // lista de registros para los empleados por nomina
+    HorasTrabajadas *lasHorasTrabajadas;   // lista de registro para los empleados cnontratados por hora
     map<int, Empleado*> laPlanilla; //(idEmpledo, empleado supervisor de otro empleado xD*) estructura de arbol
     
     float subtotal; // total en salario bruto a cancelar    
@@ -33,9 +36,8 @@ class Planilla { // CostoPlanilla
 
         void AgragarEmpleado(Empleado *empleado);
         Empleado *ObtenerEmpleado(int idEmpleado);
-
-        friend istream &operator>>(istream &i, Planilla *planilla);
-        friend ostream &operator<<(ostream &o, const Planilla *planilla);
+        
+        void GenerarLectura();
 
         void EscribirArchivo();
 
@@ -46,6 +48,17 @@ class Planilla { // CostoPlanilla
         float CalcularTotalCostoPlanilla();
         float CalcularSubtotalCostoPlanilla();
         float CalcularImpuestosRetenidos();
+
+        Empleado *ObtenerDirector();
+        float ObtenerSubtotal();
+        float ObtenerTotal();
+        float ObtenerImpuestosRetenidos();
+
+        Nomina *ObtenerNomina();
+        HorasTrabajadas* ObtenerRegistroHorasTrabjadas();
+        
+
+
 };
 
 #endif

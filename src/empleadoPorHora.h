@@ -18,6 +18,7 @@ public:
     EmpleadoPorHora(istream *streamEmpleadoPorHora);
     ~EmpleadoPorHora();
 
+    void GenerarEmpleadoPorHora();
     float ObtenerCostoPorHora();
     int ObtenerHorasAcumuladas();
     void AgregarRegistroHoras(RegistroHora *registro);    

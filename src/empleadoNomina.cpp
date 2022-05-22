@@ -4,11 +4,8 @@ using namespace std;
 
 EmpleadoNomina::EmpleadoNomina(istream *streamEmpleadoNomina) {
     this->streamEntrada = streamEmpleadoNomina;
-    string linea;
-    getline(*streamEntrada, linea);
-    istringstream stream(linea);
-    stream >> this->idEmpleado >> this->nombreEmpleado >> this->apellidoEmpleado >> this->emailEmpleado >> this->tipoEmpleado >> this->idSupervisorEmpleado;
-
+    this->GenerarEmpleadoNomina();
+    this->salarioBruto = 0;
 }
 
 EmpleadoNomina::~EmpleadoNomina(){
@@ -27,13 +24,21 @@ ostream& operator << (ostream &o, const EmpleadoNomina *empleado){
     return o;
 }
 
+void EmpleadoNomina::GenerarEmpleadoNomina() {
+    string linea;
+    getline(*streamEntrada, linea);
+    istringstream stream(linea);
+    stream >> this->idEmpleado >> this->nombreEmpleado >> this->apellidoEmpleado >> this->emailEmpleado >> this->tipoEmpleado >> this->idSupervisorEmpleado;
+}
+
 void EmpleadoNomina::AgregarRegistroPago(RegistroPago *registroNomina){
     this->registroPagoBruto =  registroNomina;
 }
 
 float EmpleadoNomina::calculoPagoNeto(){
     float pagoNeto = 0;
-    float retencion = this->ObtenerSalarioBruto() * 0.07;
+    float impuesto = 0.07;
+    float retencion = this->ObtenerSalarioBruto() * impuesto ;
     pagoNeto = this->ObtenerSalarioBruto() - retencion;
     return pagoNeto;
 }

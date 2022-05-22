@@ -23,6 +23,7 @@ public:
     float ObtenerMontoPorHora();
     int ObtenerIdEmpleado();
     int ObtenerHorasAcumuladas();
+    void GenerarRegistroHora();
 };
 
 #endif

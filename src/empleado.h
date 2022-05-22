@@ -29,15 +29,14 @@ public:
     
     virtual float calculoPagoNeto() = 0;       
     void aignarSupervisor(Empleado *supervisorAsignado);
-    void aignarEmpleado(Empleado *empleadoAsignado);
-    
+    void aignarEmpleado(Empleado *empleadoAsignado);    
     virtual vector <Empleado*> ObtenerEmpleados(); 
-    virtual int ObtenerId() = 0;
+    virtual int ObtenerId();
     virtual string ObtenerNombre();
     virtual string ObtenerApellido();
     virtual string ObtenerCorreo();
-    virtual int ObtenerTipoEmpleado() = 0;
-    virtual int ObtenerIdSupervisor() = 0;  
+    virtual int ObtenerTipoEmpleado();
+    virtual int ObtenerIdSupervisor();  
     virtual Empleado* ObtenerSupervisor();     
     
 };

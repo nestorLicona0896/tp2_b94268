@@ -4,14 +4,18 @@ using namespace std;
 
 RegistroPago::RegistroPago(istream *streamRegistro) {
     this->streamEntradaRegistroPago = streamRegistro;
-    string linea;
-    getline(*streamEntradaRegistroPago, linea);
-    istringstream stream(linea);
-    stream >> this->idEmpleado >> this->pagoBrutoMensual;
+    GenerarRegistroPago();    
 }
 
 RegistroPago::~RegistroPago() {
 
+}
+
+void RegistroPago::GenerarRegistroPago(){
+    string linea;
+    getline(*streamEntradaRegistroPago, linea);
+    istringstream stream(linea);
+    stream >> this->idEmpleado >> this->pagoBrutoMensual;
 }
 
 float RegistroPago::ObtenerPagoBruto() {
@@ -28,6 +32,6 @@ istream& operator >> (istream &i, RegistroPago *registro){
 }
 
 ostream& operator << (ostream &o, const RegistroPago *registro){
-    o << ", " << registro->idEmpleado << ", " << registro->pagoBrutoMensual;
+    o << registro->idEmpleado << ", " << registro->pagoBrutoMensual;
     return o;
 }

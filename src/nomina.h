@@ -23,6 +23,7 @@ class Nomina {
         vector <RegistroPago*> ObtenerRegistros();    
         float ObtenerTotalNomina();
         float ObtenerTotalRetencion();
+        void GenerarNomina();
 };
 
 #endif

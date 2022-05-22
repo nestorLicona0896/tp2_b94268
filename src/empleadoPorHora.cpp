@@ -5,10 +5,9 @@ using namespace std;
 EmpleadoPorHora::EmpleadoPorHora(istream *streamEmpleadoPorHora)
 {
     this->streamEntrada = streamEmpleadoPorHora;
-    string linea;
-    getline(*streamEntrada, linea);
-    istringstream stream(linea);
-    stream >> this->idEmpleado >> this->nombreEmpleado >> this->apellidoEmpleado >> this->emailEmpleado >> this->tipoEmpleado >> this->idSupervisorEmpleado;
+    GenerarEmpleadoPorHora();
+    this->costoPorHora = 0;
+    this->horasLaboradas = 0;
 }
 
 EmpleadoPorHora::~EmpleadoPorHora()
@@ -17,6 +16,14 @@ EmpleadoPorHora::~EmpleadoPorHora()
     {
         delete e;
     }
+}
+
+void EmpleadoPorHora::GenerarEmpleadoPorHora(){
+    string linea;
+    getline(*streamEntrada, linea);
+    istringstream stream(linea);
+    stream >> this->idEmpleado >> this->nombreEmpleado >> this->apellidoEmpleado >> this->emailEmpleado >> this->tipoEmpleado >> this->idSupervisorEmpleado;
+
 }
 
 istream &operator>>(istream &i, EmpleadoPorHora *empleado)
