@@ -6,8 +6,6 @@ EmpleadoPorHora::EmpleadoPorHora(istream *streamEmpleadoPorHora)
 {
     this->streamEntrada = streamEmpleadoPorHora;
     GenerarEmpleadoPorHora();
-    this->costoPorHora = 0;
-    this->horasLaboradas = 0;
 }
 
 EmpleadoPorHora::~EmpleadoPorHora()
@@ -34,7 +32,7 @@ istream &operator>>(istream &i, EmpleadoPorHora *empleado)
 
 ostream &operator<<(ostream &o, const EmpleadoPorHora *empleado)
 {
-    o << ", " << empleado->idEmpleado << ", " << empleado->nombreEmpleado << ", " << empleado->apellidoEmpleado << ", " << empleado->emailEmpleado << ", " << empleado->tipoEmpleado << ", " << empleado->idSupervisorEmpleado;
+    o << empleado->idEmpleado << ", " << empleado->nombreEmpleado << ", " << empleado->apellidoEmpleado << ", " << empleado->emailEmpleado << ", " << empleado->tipoEmpleado << ", " << empleado->idSupervisorEmpleado;
     return o;
 }
 
@@ -53,7 +51,7 @@ float EmpleadoPorHora::ObtenerCostoPorHora()
     return this->registroHoras->ObtenerMontoPorHora();
 }
 
-float EmpleadoPorHora::calculoPagoNeto()
+float EmpleadoPorHora::CalculoPagoNeto()
 {
     float pagoNeto = 0;
     pagoNeto = this->ObtenerHorasAcumuladas() * this->ObtenerCostoPorHora();

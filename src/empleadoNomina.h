@@ -3,13 +3,14 @@
 
 #include "empleado.h"
 #include  "registroPago.h"
+#include <vector>
 
 using namespace std;
 
 class EmpleadoNomina : public Empleado // tipo 2
 {
 
-float salarioBruto;
+
 RegistroPago *registroPagoBruto;
         
 public:
@@ -19,7 +20,7 @@ public:
 
     float ObtenerSalarioBruto();
     void AgregarRegistroPago(RegistroPago *registro);
-    virtual float calculoPagoNeto();  
+    virtual float CalculoPagoNeto();  
     RegistroPago* ObtenerRegistroPago();
     void GenerarEmpleadoNomina();
       

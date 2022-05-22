@@ -18,7 +18,19 @@ void HorasTrabajadas::AgregarRegistro(RegistroHora *registroNuevo) {
 }
 
 RegistroHora* HorasTrabajadas::ObtenerRegistro(int id){
-    return this->horasTrabajadas.at(id-1);
+    bool resp = false;
+    RegistroHora *rh;
+    int i = 0;
+    while (resp == false && i < this->horasTrabajadas.size())
+    {
+        rh = this->horasTrabajadas.at(i);
+        if (rh->ObtenerIdEmpleado() == id)
+        {
+            resp = true;
+        }
+        i++;
+    }
+    return rh;
 }
 
 vector <RegistroHora*> HorasTrabajadas::ObtenerRegistros(){

@@ -27,9 +27,9 @@ public:
     
     virtual ~Empleado();
     
-    virtual float calculoPagoNeto() = 0;       
-    void aignarSupervisor(Empleado *supervisorAsignado);
-    void aignarEmpleado(Empleado *empleadoAsignado);    
+    virtual float CalculoPagoNeto() = 0;       
+    void AsignarSupervisor(Empleado *supervisorAsignado);
+    void AsignarEmpleado(Empleado *empleadoAsignado);    
     virtual vector <Empleado*> ObtenerEmpleados(); 
     virtual int ObtenerId();
     virtual string ObtenerNombre();

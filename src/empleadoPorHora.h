@@ -1,5 +1,5 @@
-#ifndef EMPLEADO_NOMINA_H
-#define EMPLEADO_NOMINA_H
+#ifndef EMPLEADO_POR_HORA_H
+#define EMPLEADO_POR_HORA_H
 
 #include "empleado.h"
 #include  "registroHora.h"
@@ -9,8 +9,6 @@ using namespace std;
 class EmpleadoPorHora : public Empleado // tipo 1
 {
 
-float costoPorHora;
-int horasLaboradas;
 RegistroHora *registroHoras;
         
 public:
@@ -22,7 +20,7 @@ public:
     float ObtenerCostoPorHora();
     int ObtenerHorasAcumuladas();
     void AgregarRegistroHoras(RegistroHora *registro);    
-    virtual float calculoPagoNeto();
+    virtual float CalculoPagoNeto();
     RegistroHora* ObtenerRegistroHoras();
 
     friend istream &operator>>(istream &i, EmpleadoPorHora *empleadoPorHora);

@@ -45,3 +45,4 @@ ostream &operator<<(ostream &o, const RegistroHora *registro)
     o << registro->idEmpleado << ", " << registro->montoPorHora << ", " << registro->horasAcumuladas;
     return o;
 }
+

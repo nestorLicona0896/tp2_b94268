@@ -5,7 +5,6 @@ using namespace std;
 EmpleadoNomina::EmpleadoNomina(istream *streamEmpleadoNomina) {
     this->streamEntrada = streamEmpleadoNomina;
     this->GenerarEmpleadoNomina();
-    this->salarioBruto = 0;
 }
 
 EmpleadoNomina::~EmpleadoNomina(){
@@ -20,7 +19,7 @@ istream& operator >> (istream &i, EmpleadoNomina *empleado){
 }
 
 ostream& operator << (ostream &o, const EmpleadoNomina *empleado){
-    o << ", " << empleado->idEmpleado << ", " << empleado->nombreEmpleado << ", " << empleado->apellidoEmpleado << ", " << empleado->emailEmpleado << ", " << empleado->tipoEmpleado << ", " << empleado->idSupervisorEmpleado;
+    o << empleado->idEmpleado << ", " << empleado->nombreEmpleado << ", " << empleado->apellidoEmpleado << ", " << empleado->emailEmpleado << ", " << empleado->tipoEmpleado << ", " << empleado->idSupervisorEmpleado;
     return o;
 }
 
@@ -31,11 +30,11 @@ void EmpleadoNomina::GenerarEmpleadoNomina() {
     stream >> this->idEmpleado >> this->nombreEmpleado >> this->apellidoEmpleado >> this->emailEmpleado >> this->tipoEmpleado >> this->idSupervisorEmpleado;
 }
 
-void EmpleadoNomina::AgregarRegistroPago(RegistroPago *registroNomina){
-    this->registroPagoBruto =  registroNomina;
+void EmpleadoNomina::AgregarRegistroPago(RegistroPago *registro){
+    this->registroPagoBruto =  registro;
 }
 
-float EmpleadoNomina::calculoPagoNeto(){
+float EmpleadoNomina::CalculoPagoNeto(){
     float pagoNeto = 0;
     float impuesto = 0.07;
     float retencion = this->ObtenerSalarioBruto() * impuesto ;

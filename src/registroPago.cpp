@@ -4,7 +4,7 @@ using namespace std;
 
 RegistroPago::RegistroPago(istream *streamRegistro) {
     this->streamEntradaRegistroPago = streamRegistro;
-    GenerarRegistroPago();    
+    this->GenerarRegistroPago();    
 }
 
 RegistroPago::~RegistroPago() {

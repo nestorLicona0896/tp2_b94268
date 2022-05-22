@@ -20,14 +20,15 @@ class Planilla { // CostoPlanilla
    
     Empleado *director; // raiz
     
-    //(-1)
     Nomina *laNomina; // lista de registros para los empleados por nomina
     HorasTrabajadas *lasHorasTrabajadas;   // lista de registro para los empleados cnontratados por hora
-    map<int, Empleado*> laPlanilla; //(idEmpledo, empleado supervisor de otro empleado xD*) estructura de arbol
+    map<int, Empleado*> laPlanilla; //(idSupervisor, empleado?) estructura de arbol
     
     float subtotal; // total en salario bruto a cancelar    
     float impuestosRetenidos; // la suma de impuestos retenidos
     float total; // subtotal + impuestos
+
+    int totalPersonas;
 
     public :
 
@@ -38,8 +39,6 @@ class Planilla { // CostoPlanilla
         Empleado *ObtenerEmpleado(int idEmpleado);
         
         void GenerarLectura();
-
-        void EscribirArchivo();
 
         void GenerarPlanilla();
         void GenerarNomina();
@@ -56,8 +55,15 @@ class Planilla { // CostoPlanilla
 
         Nomina *ObtenerNomina();
         HorasTrabajadas* ObtenerRegistroHorasTrabjadas();
-        
 
+        void AgregarEmpleadoEnNomina(istream *entrada);
+        void AgregarProfesionalPorHoras(istream *entrada);
+        void AsignarPadresEhijos();
+
+        const int ObtenerTotalPersonas(); 
+
+        friend ostream& operator << (ostream &o, Planilla *unaPlanilla);
+        
 
 };
 

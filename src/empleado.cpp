@@ -3,9 +3,9 @@
 using namespace std;
 
 Empleado::~Empleado(){
-    /*for (Empleado *e : this->lista) {
+    for (Empleado *e : this->lista) {
         delete e;
-    }*/
+    }
 }
 
 vector <Empleado*> Empleado::ObtenerEmpleados(){
@@ -40,10 +40,10 @@ Empleado* Empleado::ObtenerSupervisor() {
     return this->supervisor;
 }
 
-void Empleado::aignarSupervisor(Empleado *supervisorAsignado){
+void Empleado::AsignarSupervisor(Empleado *supervisorAsignado){
     this->supervisor = supervisorAsignado;
 }
 
-void Empleado::aignarEmpleado(Empleado *empleadoAsignado){
+void Empleado::AsignarEmpleado(Empleado *empleadoAsignado){
     this->lista.push_back(empleadoAsignado);
 }  

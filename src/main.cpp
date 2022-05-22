@@ -10,8 +10,6 @@
 #include "empleadoNomina.h"
 #include "empleadoPorHora.h"
 
-#include <iostream>
-
 using namespace std;
 
 int main (){
@@ -20,7 +18,7 @@ int main (){
     ifstream ifs("horastrabajadas.txt", std::ifstream::in); // Por default abriendo como texto
     if (!ifs.is_open())
     {
-        std::cerr << "Error leyendo archivo horastrabajadas.txt" << std::endl;
+        cerr << "Error leyendo archivo horastrabajadas.txt" << std::endl;
         return -1;
     }
     //HorasTrabajadas *ht1 = new HorasTrabajadas(&ifs);
@@ -29,7 +27,7 @@ int main (){
     ifstream ifs2("nomina.txt", std::ifstream::in); // Por default abriendo como texto
     if (!ifs.is_open())
     {
-        std::cerr << "Error leyendo archivo nomina.txt" << std::endl;
+        cerr << "Error leyendo archivo nomina.txt" << std::endl;
         return -1;
     }
     //Nomina *n1 = new Nomina(&ifs2)
@@ -37,14 +35,23 @@ int main (){
     ifstream ifs3("personas.txt", std::ifstream::in); // Por default abriendo como texto
     if (!ifs.is_open())
     {
-        std::cerr << "Error leyendo archivo personas.txt" << std::endl;
+        cerr << "Error leyendo archivo personas.txt" << std::endl;
         return -1;
     }
 
-    Planilla *p1 = new Planilla(&ifs3, &ifs2, &ifs);
-    //p1->EscribirArchivo();
+    Planilla *planilla1 = new Planilla(&ifs3, &ifs2, &ifs);
+    
 
+    ofstream reporte("reporte.csv", ifstream::out); // Por default abriendo como texto
+    
+    if (!reporte.is_open())
+    {
+        cerr << "Error abriendo archivo reporte.csv" << endl;
+    }    
 
+    reporte << planilla1;
+    reporte.close();
+    delete planilla1;
 
     return 0;
 }

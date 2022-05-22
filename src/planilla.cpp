@@ -1,7 +1,7 @@
 #include "planilla.h"
 
-
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -13,16 +13,18 @@ Planilla::Planilla(istream *streamEntradaPlanilla,  istream *streamEntradaNomina
     this->subtotal = 0;
     this->total = 0;
     this->impuestosRetenidos = 0;
+    this->totalPersonas = 0; 
+    
 }
 
 Planilla::~Planilla(){
     delete this->director;
 }
 
-void Planilla::GenerarLectura(){
-    this->GenerarPlanilla();
+void Planilla::GenerarLectura(){    
     this->GenerarNomina();
     this->GenerarHorasTrabajadas();
+    this->GenerarPlanilla();
 }
 
 void Planilla::GenerarNomina() {
@@ -34,7 +36,6 @@ void Planilla::GenerarHorasTrabajadas() {
 }
 
 void Planilla::GenerarPlanilla() { // leer cada linea, generar un nodo, añadirlo al arbol
-    
     string linea;
     int id{0};
     string nombre{};
@@ -42,22 +43,59 @@ void Planilla::GenerarPlanilla() { // leer cada linea, generar un nodo, añadirl
     string correo{};
     int tipo{0};
     int idSupervisor{0};
-    while(getline(*this->entradaPlanilla, linea)){
+
+    while(getline(*this->entradaPlanilla, linea)) {        
         istringstream stream(linea);
+        istringstream stream2(linea);
         stream >> id >> nombre >> apellido >> correo >> tipo >> idSupervisor;
+        
         if(tipo == 1){ // empleado de nomina
-            EmpleadoNomina *en = new EmpleadoNomina(&stream);
+            this->AgregarEmpleadoEnNomina(&stream2);
+            this->totalPersonas ++;           
         } else { // empleado por hora
-            //EmpleadoPorHora *eph = new EmpleadoPorHora(&stream);
+            this->AgregarProfesionalPorHoras(&stream2);
+            this->totalPersonas ++;
         }
     }
+    this->subtotal = this->CalcularSubtotalCostoPlanilla();
+    this->impuestosRetenidos = this->CalcularImpuestosRetenidos();
+    this->total = this->CalcularTotalCostoPlanilla();
+}
+
+void Planilla::AsignarPadresEhijos(){
+    for(int i = 0; i < this->ObtenerTotalPersonas(); i++) {
+        Empleado *empleado = this->laPlanilla.at(i);
+        Empleado *supervisorEmpleado = this->laPlanilla.at(empleado->ObtenerIdSupervisor()-1);
+        if(this->director == 0) {
+            this->director = empleado;
+        } 
+        empleado->AsignarSupervisor(supervisorEmpleado);
+        supervisorEmpleado->AsignarEmpleado(empleado);              
+    }
+}
+
+void Planilla::AgregarEmpleadoEnNomina(istream *entrada){
+    EmpleadoNomina *en = new EmpleadoNomina(entrada);
+    en->AgregarRegistroPago(this->laNomina->ObtenerRegistro(en->ObtenerId()));
+    this->laPlanilla.insert(pair<int, Empleado*>(en->ObtenerIdSupervisor(), en));
+    cout << en << endl;   
+}
+
+void Planilla::AgregarProfesionalPorHoras(istream *entrada){
+    EmpleadoPorHora *eph = new EmpleadoPorHora(entrada);
+    eph->AgregarRegistroHoras(this->lasHorasTrabajadas->ObtenerRegistro(eph->ObtenerId()));
+    this->laPlanilla.insert(pair<int, Empleado*>(eph->ObtenerIdSupervisor(), eph));
+    cout << eph << endl;
+}
+
+const int Planilla::ObtenerTotalPersonas() {
+    return this->totalPersonas;
 }
 
 float Planilla::CalcularTotalCostoPlanilla(){
     float costoTotal = 0;
     costoTotal += (this->CalcularImpuestosRetenidos() + this->CalcularSubtotalCostoPlanilla());
-    return costoTotal;
-    
+    return costoTotal;    
 }
 
 float Planilla::CalcularSubtotalCostoPlanilla(){
@@ -68,7 +106,7 @@ float Planilla::CalcularSubtotalCostoPlanilla(){
 
 float Planilla::CalcularImpuestosRetenidos(){
     float totalImpuestos = 0;
-    totalImpuestos += this->laNomina->ObtenerTotalRetencion();    
+    totalImpuestos += this->laNomina->ObtenerTotalRetencion(); 
     return totalImpuestos;
 }
 
@@ -96,3 +134,11 @@ HorasTrabajadas* Planilla::ObtenerRegistroHorasTrabjadas(){
     return this->lasHorasTrabajadas;
 }
         
+ostream& operator << (ostream &o, Planilla *unaPlanilla){    
+    for(int n = 0; n < unaPlanilla->ObtenerTotalPersonas(); n++){
+        Empleado *aux = unaPlanilla->laPlanilla.at(n);
+        o << aux->ObtenerId() << aux->ObtenerNombre() << aux->ObtenerApellido() << aux->ObtenerSupervisor()->ObtenerNombre() << aux->ObtenerSupervisor()->ObtenerApellido() << aux->CalculoPagoNeto() << endl;
+    }
+    o << unaPlanilla->ObtenerSubtotal() << unaPlanilla->ObtenerImpuestosRetenidos() << unaPlanilla->ObtenerTotal() << endl;
+    return o;
+}
