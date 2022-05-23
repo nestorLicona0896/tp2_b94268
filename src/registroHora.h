@@ -14,6 +14,7 @@ class RegistroHora
     istream *streamEntradaRegistroHora;
 
 public:
+
     RegistroHora(istream *streamRegistroHora);
     ~RegistroHora();
 

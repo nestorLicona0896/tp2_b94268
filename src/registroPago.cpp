@@ -13,9 +13,9 @@ RegistroPago::~RegistroPago() {
 
 void RegistroPago::GenerarRegistroPago(){
     string linea;
-    getline(*streamEntradaRegistroPago, linea);
-    istringstream stream(linea);
-    stream >> this->idEmpleado >> this->pagoBrutoMensual;
+    getline(*(this->streamEntradaRegistroPago), linea);
+    istringstream streamPago(linea);
+    streamPago >> this->idEmpleado >> this->pagoBrutoMensual;
 }
 
 float RegistroPago::ObtenerPagoBruto() {

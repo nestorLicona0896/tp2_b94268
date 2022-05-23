@@ -1,5 +1,6 @@
 #include "nomina.h"
 #include "iostream"
+
 using namespace std;
 
 Nomina::Nomina(istream *entradaNominaNueva)
@@ -69,9 +70,9 @@ void Nomina::GenerarNomina()
     string linea;
     while (getline(*this->entradaNomina, linea))
     {
-        istringstream stream(linea);
-        RegistroPago *rp = new RegistroPago(&stream);
-        // cout << rp << endl;
+        istringstream streamPago(linea);
+        RegistroPago *rp = new RegistroPago(&streamPago);        
         this->AgregarRegistro(rp);
+        //cout << rp << endl;
     }
 }

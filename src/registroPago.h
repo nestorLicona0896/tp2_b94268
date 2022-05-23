@@ -13,7 +13,7 @@ class RegistroPago
     istream *streamEntradaRegistroPago;
 
 public:
-    RegistroPago();
+    
     RegistroPago(istream *streamRegistroPago);
     ~RegistroPago();
 

@@ -36,9 +36,9 @@ ostream &operator<<(ostream &o, const EmpleadoPorHora *empleado)
     return o;
 }
 
-void EmpleadoPorHora::AgregarRegistroHoras(RegistroHora *registroHoras)
+void EmpleadoPorHora::AgregarRegistroHoras(RegistroHora *regis)
 {
-    this->registroHoras = registroHoras;
+    this->registroHoras = regis;
 }
 
 int EmpleadoPorHora::ObtenerHorasAcumuladas()
@@ -58,7 +58,7 @@ float EmpleadoPorHora::CalculoPagoNeto()
     return pagoNeto;
 }
 
-RegistroHora *EmpleadoPorHora::ObtenerRegistroHoras()
+RegistroHora *EmpleadoPorHora::ObtenerRegistroHorasEnMes()
 {
     return this->registroHoras;
 }

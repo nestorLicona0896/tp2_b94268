@@ -18,8 +18,8 @@ class HorasTrabajadas {
         ~HorasTrabajadas();
 
         void AgregarRegistro(RegistroHora *registro);
-        RegistroHora* ObtenerRegistro(int id);
-        vector <RegistroHora*> ObtenerRegistros();    
+        RegistroHora* ObtenerRegistroHoras(int id);
+        vector <RegistroHora*> ObtenerRegistrosHoras();    
         float ObtenerTotal();
         void GenerarRegistros();
 };

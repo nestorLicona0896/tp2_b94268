@@ -20,15 +20,15 @@ class Planilla { // CostoPlanilla
    
     Empleado *director; // raiz
     
-    Nomina *laNomina; // lista de registros para los empleados por nomina
-    HorasTrabajadas *lasHorasTrabajadas;   // lista de registro para los empleados cnontratados por hora
-    map<int, Empleado*> laPlanilla; //(idSupervisor, empleado?) estructura de arbol
+    Nomina *laNomina; // registros para los empleados por nomina
+    HorasTrabajadas *lasHorasTrabajadas;   // registro para los empleados contratados por hora
+    map<int, Empleado*> laPlanilla; //(idSupervisor, empleado) estructura de arbol para la planilla
     
     float subtotal; // total en salario bruto a cancelar    
     float impuestosRetenidos; // la suma de impuestos retenidos
     float total; // subtotal + impuestos
 
-    int totalPersonas;
+    int totalPersonas; // total de personas en planilla
 
     public :
 

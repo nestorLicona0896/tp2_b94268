@@ -9,12 +9,12 @@ Planilla::Planilla(istream *streamEntradaPlanilla,  istream *streamEntradaNomina
     this->entradaPlanilla = streamEntradaPlanilla;
     this->entradaNomina = streamEntradaNomina;
     this->entradaHorasTrabajadas = streamEntradaRegistroHoras;
-    this->GenerarLectura();
     this->subtotal = 0;
     this->total = 0;
     this->impuestosRetenidos = 0;
-    this->totalPersonas = 0; 
-    
+    this->totalPersonas = 0;
+    this->GenerarLectura();
+    //AsignarPadresEhijos();
 }
 
 Planilla::~Planilla(){
@@ -22,9 +22,9 @@ Planilla::~Planilla(){
 }
 
 void Planilla::GenerarLectura(){    
-    this->GenerarNomina();
     this->GenerarHorasTrabajadas();
-    this->GenerarPlanilla();
+    this->GenerarNomina();    
+    this->GenerarPlanilla();    
 }
 
 void Planilla::GenerarNomina() {
@@ -63,29 +63,37 @@ void Planilla::GenerarPlanilla() { // leer cada linea, generar un nodo, añadirl
 }
 
 void Planilla::AsignarPadresEhijos(){
-    for(int i = 0; i < this->ObtenerTotalPersonas(); i++) {
+    for(int i = 1; i < this->ObtenerTotalPersonas()-1; i++) {
         Empleado *empleado = this->laPlanilla.at(i);
-        Empleado *supervisorEmpleado = this->laPlanilla.at(empleado->ObtenerIdSupervisor()-1);
+        Empleado *supervisorEmpleado = this->laPlanilla.at(empleado->ObtenerIdSupervisor());
         if(this->director == 0) {
             this->director = empleado;
-        } 
-        empleado->AsignarSupervisor(supervisorEmpleado);
-        supervisorEmpleado->AsignarEmpleado(empleado);              
+            director->AsignarSupervisor(empleado);
+        } else {
+            empleado->AsignarSupervisor(supervisorEmpleado);
+            supervisorEmpleado->AsignarEmpleado(empleado);  
+        }                
     }
 }
 
 void Planilla::AgregarEmpleadoEnNomina(istream *entrada){
+
     EmpleadoNomina *en = new EmpleadoNomina(entrada);
+
+
     en->AgregarRegistroPago(this->laNomina->ObtenerRegistro(en->ObtenerId()));
     this->laPlanilla.insert(pair<int, Empleado*>(en->ObtenerIdSupervisor(), en));
-    cout << en << endl;   
+    cout << en->ObtenerRegistroPago() << endl;
+    //cout <<  this->laPlanilla.at(en->ObtenerId())->ObtenerNombre() << endl;
 }
 
 void Planilla::AgregarProfesionalPorHoras(istream *entrada){
+
+
     EmpleadoPorHora *eph = new EmpleadoPorHora(entrada);
-    eph->AgregarRegistroHoras(this->lasHorasTrabajadas->ObtenerRegistro(eph->ObtenerId()));
+    eph->AgregarRegistroHoras(this->lasHorasTrabajadas->ObtenerRegistroHoras(eph->ObtenerId()));
     this->laPlanilla.insert(pair<int, Empleado*>(eph->ObtenerIdSupervisor(), eph));
-    cout << eph << endl;
+    cout << eph->ObtenerRegistroHorasEnMes() << endl; 
 }
 
 const int Planilla::ObtenerTotalPersonas() {
@@ -135,7 +143,7 @@ HorasTrabajadas* Planilla::ObtenerRegistroHorasTrabjadas(){
 }
         
 ostream& operator << (ostream &o, Planilla *unaPlanilla){    
-    for(int n = 0; n < unaPlanilla->ObtenerTotalPersonas(); n++){
+    for(int n = 0; n < unaPlanilla->ObtenerTotalPersonas()-1; n++){
         Empleado *aux = unaPlanilla->laPlanilla.at(n);
         o << aux->ObtenerId() << aux->ObtenerNombre() << aux->ObtenerApellido() << aux->ObtenerSupervisor()->ObtenerNombre() << aux->ObtenerSupervisor()->ObtenerApellido() << aux->CalculoPagoNeto() << endl;
     }

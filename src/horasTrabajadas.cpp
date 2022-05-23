@@ -1,5 +1,6 @@
 #include "horasTrabajadas.h"
 #include "iostream"
+
 using namespace std;
 
 HorasTrabajadas::HorasTrabajadas(istream *entradaHorasTrabajadas) {
@@ -8,7 +9,7 @@ HorasTrabajadas::HorasTrabajadas(istream *entradaHorasTrabajadas) {
 }
 
 HorasTrabajadas::~HorasTrabajadas(){
-    for(RegistroHora *rh :this->horasTrabajadas){
+    for(RegistroHora *rh : this->horasTrabajadas){
         delete rh;
     }
 }
@@ -17,7 +18,7 @@ void HorasTrabajadas::AgregarRegistro(RegistroHora *registroNuevo) {
     this->horasTrabajadas.push_back(registroNuevo);
 }
 
-RegistroHora* HorasTrabajadas::ObtenerRegistro(int id){
+RegistroHora* HorasTrabajadas::ObtenerRegistroHoras(int id){
     bool resp = false;
     RegistroHora *rh;
     int i = 0;
@@ -33,7 +34,7 @@ RegistroHora* HorasTrabajadas::ObtenerRegistro(int id){
     return rh;
 }
 
-vector <RegistroHora*> HorasTrabajadas::ObtenerRegistros(){
+vector <RegistroHora*> HorasTrabajadas::ObtenerRegistrosHoras(){
     return this->horasTrabajadas;
 }
 
@@ -47,10 +48,11 @@ float HorasTrabajadas::ObtenerTotal() {
 
 void HorasTrabajadas::GenerarRegistros(){
     string linea;
-    while(getline(*this->entradaHoras, linea)){
-        istringstream stream(linea);
-        RegistroHora *rh = new RegistroHora(&stream);        
-        //cout << rh << endl;
+    while(getline(*(this->entradaHoras), linea))
+    {
+        istringstream streamHoras(linea);
+        RegistroHora *rh = new RegistroHora(&streamHoras);     
         this->AgregarRegistro(rh);
+        //cout << rh << endl;
     }
 }

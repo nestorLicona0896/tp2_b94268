@@ -21,7 +21,7 @@ public:
     int ObtenerHorasAcumuladas();
     void AgregarRegistroHoras(RegistroHora *registro);    
     virtual float CalculoPagoNeto();
-    RegistroHora* ObtenerRegistroHoras();
+    RegistroHora* ObtenerRegistroHorasEnMes();
 
     friend istream &operator>>(istream &i, EmpleadoPorHora *empleadoPorHora);
     friend ostream &operator<<(ostream &o, const EmpleadoPorHora *empleadoPorHora);
