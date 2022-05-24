@@ -15,6 +15,7 @@ RegistroPago *registroPagoBruto;
         
 public:
     
+    EmpleadoNomina(int idEmpleado, string nombreEmpleado, string apellidoEmpleado, string emailEmpleado,  int tipoEmpleado, int idSupervisorEmpleado);
     EmpleadoNomina(istream *streamEmpleadoNomina);
     ~EmpleadoNomina();
 

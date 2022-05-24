@@ -16,12 +16,7 @@ void Supervisor::GenerarLaPlanilla() {
     string linea;
     while(getline(*this->entradaPlanilla, linea)) {
         istringstream stream(linea);
-        if(this->ObtenerSupervisor() == 0) {
-            this->director = new EmpleadoNomina(&stream);
-            this->empleados.insert(pair<int, Empleado*>(this->director->ObtenerId(), this->director)); 
-        } else {
-            this->AgregarEmpleado(stream);  
-        }
+        this->AgregarEmpleado(stream);  
         this->totalEmpleados ++;
     }
 }
@@ -33,33 +28,28 @@ void Supervisor::AgregarEmpleado(istream &elEmpleado) {
     string correo{};
     int tipo{0};
     int idSupervisor{0};
-    string linea;
-    getline(elEmpleado, linea);
-    istringstream stream(linea);
     elEmpleado >> id >> nombre >> apellido >> correo >> tipo >> idSupervisor;
-    //cout << id << nombre << apellido << correo << tipo << idSupervisor;
     if(tipo == 1) { // empleado de nomina
-            this->AgregarEmpleadoEnNomina(&stream);           
+            this->AgregarEmpleadoEnNomina(id, nombre, apellido, correo, tipo, idSupervisor);           
     } else { // empleado por hora
-            this->AgregarProfesionalPorHoras(&stream);
+            this->AgregarProfesionalPorHoras(id, nombre, apellido, correo, tipo, idSupervisor);
     }    
 }
 
-void Supervisor::AgregarEmpleadoEnNomina(istream *entrada){
-    EmpleadoNomina *en = new EmpleadoNomina(entrada);
-    Empleado *supervisor = this->empleados.at(en->ObtenerIdSupervisor());
-    // agregar empleado
-    en->AsignarSupervisor(supervisor);
-    supervisor->AsignarEmpleado(en);
+void Supervisor::AgregarEmpleadoEnNomina(int idEmpleadoNuevo, string nombreEmpleadoNuevo, string apellidoEmpleadoNuevo, string emailEmpleadoNuevo,  int tipoEmpleadoNuevo, int idSupervisorEmpleadoNuevo){
+    EmpleadoNomina *en = new EmpleadoNomina(idEmpleadoNuevo, nombreEmpleadoNuevo, apellidoEmpleadoNuevo, emailEmpleadoNuevo,  tipoEmpleadoNuevo, idSupervisorEmpleadoNuevo);
     this->empleados.insert(pair<int, Empleado*>(en->ObtenerIdSupervisor(), en));
-    cout << en << endl; 
+    this->empleados.at(en->ObtenerIdSupervisor())->AsignarEmpleado(en);
+    en->AsignarSupervisor(this->empleados.at(en->ObtenerIdSupervisor()));
+    //cout << en->ObtenerSupervisor() << endl; 
 }
 
-void Supervisor::AgregarProfesionalPorHoras(istream *entrada){   
-    EmpleadoPorHora *eph = new EmpleadoPorHora(entrada);
-
-    // agregar empleado
-    cout << eph << endl;   
+void Supervisor::AgregarProfesionalPorHoras(int idEmpleadoNuevo, string nombreEmpleadoNuevo, string apellidoEmpleadoNuevo, string emailEmpleadoNuevo,  int tipoEmpleadoNuevo, int idSupervisorEmpleadoNuevo){   
+    EmpleadoPorHora *eph = new EmpleadoPorHora(idEmpleadoNuevo, nombreEmpleadoNuevo, apellidoEmpleadoNuevo, emailEmpleadoNuevo,  tipoEmpleadoNuevo, idSupervisorEmpleadoNuevo);
+    this->empleados.insert(pair<int, Empleado*>(eph->ObtenerIdSupervisor(), eph));
+    this->empleados.at(eph->ObtenerIdSupervisor())->AsignarEmpleado(eph);
+    eph->AsignarSupervisor(this->empleados.at(eph->ObtenerIdSupervisor()));
+    //cout << eph->ObtenerSupervisor() << endl;   
 }
 
 Empleado *Supervisor::ObtenerEmpleado(int id) {

@@ -52,7 +52,6 @@ class Planilla { // CostoPlanilla
 
         void AgregarEmpleadoEnNomina(istream *entrada);
         void AgregarProfesionalPorHoras(istream *entrada);
-        void AgregarAplanilla(Empleado *emp);
 
         friend ostream& operator << (ostream &o, Planilla *unaPlanilla);       
 

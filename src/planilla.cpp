@@ -35,18 +35,12 @@ void Planilla::GenerarHorasTrabajadas() {
 
 void Planilla::GenerarPlanilla() { // leer cada linea, generar un nodo, añadirlo al arbol
     this->laPlanilla = new Supervisor(this->entradaPlanilla); 
-      
+
+    //recorrer cada vector de registros y asignarlos mediante el id a los empleados del arbol mapeados  
+    
     //this->subtotal = this->CalcularSubtotalCostoPlanilla();
     //this->impuestosRetenidos = this->CalcularImpuestosRetenidos();
     //this->total = this->CalcularTotalCostoPlanilla();
-}
-
-void Planilla::AgregarAplanilla(Empleado *empl) {
-     //Empleado *supervisor = laPlanilla.at(empl->ObtenerIdSupervisor());
-     //empl->AsignarSupervisor(supervisor);
-     //laPlanilla.at(empl->ObtenerId())->AsignarSupervisor(supervisor);
-     //this->laPlanilla.at(empl->ObtenerIdSupervisor())->AsignarEmpleado(empl);
-     //this->laPlanilla.insert(pair<int, Empleado*>(empl->ObtenerIdSupervisor(), empl));   
 }
 
 float Planilla::CalcularTotalCostoPlanilla(){
@@ -92,7 +86,7 @@ HorasTrabajadas* Planilla::ObtenerRegistroHorasTrabjadas(){
 }
         
 ostream& operator << (ostream &o, Planilla *unaPlanilla){    
-    /*for(int n = 1; n < unaPlanilla->ObtenerTotalPersonas()-1; n++){
+  /*for(int n = 1; n < unaPlanilla->ObtenerTotalPersonas()-1; n++){
         for(Empleado* emp1 : unaPlanilla->laPlanilla.at(n)->ObtenerEmpleados()){
             o << emp1->ObtenerId() << ", " << emp1->ObtenerNombre() << ", " << emp1->ObtenerApellido() << ", " << emp1->ObtenerSupervisor()->ObtenerNombre() << ", " << emp1->ObtenerSupervisor()->ObtenerApellido() << ", " << emp1->CalculoPagoNeto() << endl;
         }

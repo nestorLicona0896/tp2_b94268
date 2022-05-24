@@ -13,6 +13,7 @@ RegistroHora *registroHoras;
         
 public:
     
+    EmpleadoPorHora(int idEmpleadoNuevo, string nombreEmpleadoNuevo, string apellidoEmpleadoNuevo, string emailEmpleadoNuevo,  int tipoEmpleadoNuevo, int idSupervisorEmpleadoNuevo);
     EmpleadoPorHora(istream *streamEmpleadoPorHora);
     ~EmpleadoPorHora();
 
