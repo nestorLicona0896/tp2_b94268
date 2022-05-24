@@ -8,20 +8,9 @@ EmpleadoNomina::EmpleadoNomina(istream *streamEmpleadoNomina) {
 }
 
 EmpleadoNomina::~EmpleadoNomina(){
-    for(Empleado *e : this->lista) {
-        delete e;
-    }
+   
 }
 
-istream& operator >> (istream &i, EmpleadoNomina *empleado){
-    i >> empleado->idEmpleado >> empleado->nombreEmpleado >> empleado->apellidoEmpleado >> empleado->emailEmpleado >> empleado->tipoEmpleado >> empleado->idSupervisorEmpleado;
-    return i;
-}
-
-ostream& operator << (ostream &o, const EmpleadoNomina *empleado){
-    o << empleado->idEmpleado << ", " << empleado->nombreEmpleado << ", " << empleado->apellidoEmpleado << ", " << empleado->emailEmpleado << ", " << empleado->tipoEmpleado << ", " << empleado->idSupervisorEmpleado;
-    return o;
-}
 
 void EmpleadoNomina::GenerarEmpleadoNomina() {
     string linea;

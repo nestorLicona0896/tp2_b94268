@@ -10,10 +10,7 @@ EmpleadoPorHora::EmpleadoPorHora(istream *streamEmpleadoPorHora)
 
 EmpleadoPorHora::~EmpleadoPorHora()
 {
-    for (Empleado *e : this->lista)
-    {
-        delete e;
-    }
+   
 }
 
 void EmpleadoPorHora::GenerarEmpleadoPorHora(){
@@ -22,18 +19,6 @@ void EmpleadoPorHora::GenerarEmpleadoPorHora(){
     istringstream stream(linea);
     stream >> this->idEmpleado >> this->nombreEmpleado >> this->apellidoEmpleado >> this->emailEmpleado >> this->tipoEmpleado >> this->idSupervisorEmpleado;
 
-}
-
-istream &operator>>(istream &i, EmpleadoPorHora *empleado)
-{
-    i >> empleado->idEmpleado >> empleado->nombreEmpleado >> empleado->apellidoEmpleado >> empleado->emailEmpleado >> empleado->tipoEmpleado >> empleado->idSupervisorEmpleado;
-    return i;
-}
-
-ostream &operator<<(ostream &o, const EmpleadoPorHora *empleado)
-{
-    o << empleado->idEmpleado << ", " << empleado->nombreEmpleado << ", " << empleado->apellidoEmpleado << ", " << empleado->emailEmpleado << ", " << empleado->tipoEmpleado << ", " << empleado->idSupervisorEmpleado;
-    return o;
 }
 
 void EmpleadoPorHora::AgregarRegistroHoras(RegistroHora *regis)

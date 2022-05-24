@@ -23,10 +23,7 @@ public:
     virtual float CalculoPagoNeto();  
     RegistroPago* ObtenerRegistroPago();
     void GenerarEmpleadoNomina();
-      
-    friend istream &operator >> (istream &i, EmpleadoNomina *empleadoNomina);
-    friend ostream &operator << (ostream &o, const EmpleadoNomina *empleadoNomina);   
-         
+          
 };
 
 #endif

@@ -4,9 +4,7 @@
 #include <map>
 #include <vector>
 
-#include "empleado.h"
-#include "empleadoNomina.h"
-#include "empleadoPorHora.h"
+#include "supervisor.h"
 #include "horasTrabajadas.h"
 #include "nomina.h"
 
@@ -17,18 +15,14 @@ class Planilla { // CostoPlanilla
     istream *entradaPlanilla; // personas.txt
     istream *entradaHorasTrabajadas; //horastrabajadas.txt
     istream *entradaNomina; //nomina.txt
-   
-    Empleado *director; // raiz
-    
+        
     Nomina *laNomina; // registros para los empleados por nomina
     HorasTrabajadas *lasHorasTrabajadas;   // registro para los empleados contratados por hora
-    map<int, Empleado*> laPlanilla; //(idSupervisor, empleado) estructura de arbol para la planilla
-    
+    Supervisor *laPlanilla; // arbol
+     
     float subtotal; // total en salario bruto a cancelar    
     float impuestosRetenidos; // la suma de impuestos retenidos
     float total; // subtotal + impuestos
-
-    int totalPersonas; // total de personas en planilla
 
     public :
 
@@ -58,12 +52,9 @@ class Planilla { // CostoPlanilla
 
         void AgregarEmpleadoEnNomina(istream *entrada);
         void AgregarProfesionalPorHoras(istream *entrada);
-        void AsignarPadresEhijos();
+        void AgregarAplanilla(Empleado *emp);
 
-        const int ObtenerTotalPersonas(); 
-
-        friend ostream& operator << (ostream &o, Planilla *unaPlanilla);
-        
+        friend ostream& operator << (ostream &o, Planilla *unaPlanilla);       
 
 };
 

@@ -2,7 +2,7 @@
 #define EMPLEADO_POR_HORA_H
 
 #include "empleado.h"
-#include  "registroHora.h"
+#include "registroHora.h"
 
 using namespace std;
 
@@ -21,12 +21,7 @@ public:
     int ObtenerHorasAcumuladas();
     void AgregarRegistroHoras(RegistroHora *registro);    
     virtual float CalculoPagoNeto();
-    RegistroHora* ObtenerRegistroHorasEnMes();
-
-    friend istream &operator>>(istream &i, EmpleadoPorHora *empleadoPorHora);
-    friend ostream &operator<<(ostream &o, const EmpleadoPorHora *empleadoPorHora);
-
-    
+    RegistroHora* ObtenerRegistroHorasEnMes();    
 
 };
 

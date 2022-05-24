@@ -28,16 +28,19 @@ public:
     virtual ~Empleado();
     
     virtual float CalculoPagoNeto() = 0;       
-    void AsignarSupervisor(Empleado *supervisorAsignado);
-    void AsignarEmpleado(Empleado *empleadoAsignado);    
+    virtual void AsignarSupervisor(Empleado *supervisorAsignado);
+    virtual void AsignarEmpleado(Empleado *empleadoAsignado);    
     virtual vector <Empleado*> ObtenerEmpleados(); 
     virtual int ObtenerId();
     virtual string ObtenerNombre();
     virtual string ObtenerApellido();
     virtual string ObtenerCorreo();
     virtual int ObtenerTipoEmpleado();
-    virtual int ObtenerIdSupervisor();  
-    virtual Empleado* ObtenerSupervisor();     
+    virtual int ObtenerIdSupervisor();   
+    virtual Empleado *ObtenerSupervisor(); 
+
+    friend istream& operator>>(istream &entrada, Empleado *emp);
+    friend ostream& operator<<(ostream &salida, Empleado *emp);  
     
 };
 

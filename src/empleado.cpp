@@ -2,48 +2,72 @@
 
 using namespace std;
 
-Empleado::~Empleado(){
-    for (Empleado *e : this->lista) {
+Empleado::~Empleado()
+{
+    for (Empleado *e : this->lista)
+    {
         delete e;
     }
 }
 
-vector <Empleado*> Empleado::ObtenerEmpleados(){
+vector<Empleado *> Empleado::ObtenerEmpleados()
+{
     return this->lista;
 }
 
-int Empleado::ObtenerId() {
+int Empleado::ObtenerId()
+{
     return this->idEmpleado;
 }
 
-string Empleado::ObtenerNombre() {
+string Empleado::ObtenerNombre()
+{
     return this->nombreEmpleado;
 }
 
-string Empleado::ObtenerApellido() {
+string Empleado::ObtenerApellido()
+{
     return this->apellidoEmpleado;
 }
 
-string Empleado::ObtenerCorreo() {
+string Empleado::ObtenerCorreo()
+{
     return this->emailEmpleado;
 }
 
-int Empleado::ObtenerTipoEmpleado(){
+int Empleado::ObtenerTipoEmpleado()
+{
     return this->tipoEmpleado;
 }
 
-int Empleado::ObtenerIdSupervisor() {
+int Empleado::ObtenerIdSupervisor()
+{
     return this->idSupervisorEmpleado;
 }
 
-Empleado* Empleado::ObtenerSupervisor() {
+Empleado *Empleado::ObtenerSupervisor()
+{
     return this->supervisor;
 }
 
-void Empleado::AsignarSupervisor(Empleado *supervisorAsignado){
+void Empleado::AsignarSupervisor(Empleado *supervisorAsignado)
+{
     this->supervisor = supervisorAsignado;
 }
 
-void Empleado::AsignarEmpleado(Empleado *empleadoAsignado){
+void Empleado::AsignarEmpleado(Empleado *empleadoAsignado)
+{
     this->lista.push_back(empleadoAsignado);
-}  
+}
+
+istream &operator>>(istream &i, Empleado *emp)
+{
+    i >> emp->idEmpleado >> emp->nombreEmpleado >> emp->apellidoEmpleado >> emp->emailEmpleado >> emp->tipoEmpleado >> emp->idSupervisorEmpleado;
+    return i;
+}
+
+ostream &operator<<(ostream &o, Empleado *emp)
+{
+    o << emp->idEmpleado << ", " << emp->nombreEmpleado << ", " << emp->apellidoEmpleado << ", " << emp->emailEmpleado << ", " << emp->tipoEmpleado << ", " << emp->idSupervisorEmpleado;
+    return o;
+}

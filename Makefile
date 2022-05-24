@@ -3,6 +3,7 @@ FLAGS = -g -c --std=c++17
 all:
 	mkdir -p bin
 	g++ $(FLAGS) src/empleado.cpp -o bin/empleado.o	
+	g++ $(FLAGS) src/supervisor.cpp -o bin/supervisor.o	
 	g++ $(FLAGS) src/empleadoNomina.cpp -o bin/empleadoNomina.o	
 	g++ $(FLAGS) src/empleadoPorHora.cpp -o bin/empleadoPorHora.o	
 	g++ $(FLAGS) src/horasTrabajadas.cpp -o bin/horasTrabajadas.o
@@ -11,7 +12,7 @@ all:
 	g++ $(FLAGS) src/registroHora.cpp -o bin/registroHora.o
 	g++ $(FLAGS) src/registroPago.cpp -o bin/registroPago.o
 	g++ $(FLAGS) src/main.cpp -o bin/main.o	
-	g++ -g -o bin/pagosalarios bin/empleado.o bin/empleadoNomina.o bin/empleadoPorHora.o bin/horasTrabajadas.o bin/nomina.o bin/planilla.o bin/registroHora.o bin/registroPago.o bin/main.o
+	g++ -g -o bin/pagosalarios bin/empleado.o bin/supervisor.o bin/empleadoNomina.o bin/empleadoPorHora.o bin/horasTrabajadas.o bin/nomina.o bin/planilla.o bin/registroHora.o bin/registroPago.o bin/main.o
 
 test:
 	mkdir -p bin
