@@ -8,25 +8,11 @@ EmpleadoNomina::EmpleadoNomina(int idEmpleadoNuevo, string nombreEmpleadoNuevo, 
     this-> apellidoEmpleado = apellidoEmpleadoNuevo;
     this->emailEmpleado = emailEmpleadoNuevo;
     this->tipoEmpleado = tipoEmpleadoNuevo;
-    this->idSupervisorEmpleado = idSupervisorEmpleadoNuevo;
-    
-}
-
-EmpleadoNomina::EmpleadoNomina(istream *streamEmpleadoNomina) {
-    this->streamEntrada = streamEmpleadoNomina;
-    this->GenerarEmpleadoNomina();
+    this->idSupervisorEmpleado = idSupervisorEmpleadoNuevo;    
 }
 
 EmpleadoNomina::~EmpleadoNomina(){
    
-}
-
-
-void EmpleadoNomina::GenerarEmpleadoNomina() {
-    string linea;
-    getline(*streamEntrada, linea);
-    istringstream stream(linea);
-    stream >> this->idEmpleado >> this->nombreEmpleado >> this->apellidoEmpleado >> this->emailEmpleado >> this->tipoEmpleado >> this->idSupervisorEmpleado;
 }
 
 void EmpleadoNomina::AgregarRegistroPago(RegistroPago *registro){

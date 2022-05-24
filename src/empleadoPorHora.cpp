@@ -12,23 +12,9 @@ EmpleadoPorHora::EmpleadoPorHora(int idEmpleadoNuevo, string nombreEmpleadoNuevo
     
 }
 
-EmpleadoPorHora::EmpleadoPorHora(istream *streamEmpleadoPorHora)
-{
-    this->streamEntrada = streamEmpleadoPorHora;
-    GenerarEmpleadoPorHora();
-}
-
 EmpleadoPorHora::~EmpleadoPorHora()
 {
    
-}
-
-void EmpleadoPorHora::GenerarEmpleadoPorHora(){
-    string linea;
-    getline(*streamEntrada, linea);
-    istringstream stream(linea);
-    stream >> this->idEmpleado >> this->nombreEmpleado >> this->apellidoEmpleado >> this->emailEmpleado >> this->tipoEmpleado >> this->idSupervisorEmpleado;
-
 }
 
 void EmpleadoPorHora::AgregarRegistroHoras(RegistroHora *regis)

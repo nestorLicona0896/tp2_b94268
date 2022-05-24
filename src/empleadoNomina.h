@@ -16,14 +16,12 @@ RegistroPago *registroPagoBruto;
 public:
     
     EmpleadoNomina(int idEmpleado, string nombreEmpleado, string apellidoEmpleado, string emailEmpleado,  int tipoEmpleado, int idSupervisorEmpleado);
-    EmpleadoNomina(istream *streamEmpleadoNomina);
     ~EmpleadoNomina();
 
     float ObtenerSalarioBruto();
     void AgregarRegistroPago(RegistroPago *registro);
     virtual float CalculoPagoNeto();  
     RegistroPago* ObtenerRegistroPago();
-    void GenerarEmpleadoNomina();
           
 };
 
