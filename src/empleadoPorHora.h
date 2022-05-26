@@ -20,7 +20,8 @@ public:
     int ObtenerHorasAcumuladas();
     void AgregarRegistroHoras(RegistroHora *registro);    
     virtual float CalculoPagoNeto();
-    RegistroHora* ObtenerRegistroHorasEnMes();    
+    RegistroHora* ObtenerRegistroHorasEnMes();  
+    void AgregarRegistroHorasEnMes(RegistroHora  *nuevoRegistro);  
 
 };
 

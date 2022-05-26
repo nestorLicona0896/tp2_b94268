@@ -6,6 +6,7 @@
 using namespace std;
 
 Planilla::Planilla(istream *streamEntradaPlanilla,  istream *streamEntradaNomina, istream *streamEntradaRegistroHoras){
+    this->totalPersonal = 0;
     this->entradaPlanilla = streamEntradaPlanilla;
     this->entradaNomina = streamEntradaNomina;
     this->entradaHorasTrabajadas = streamEntradaRegistroHoras;
@@ -33,15 +34,47 @@ void Planilla::GenerarHorasTrabajadas() {
     this->lasHorasTrabajadas = new HorasTrabajadas(this->entradaHorasTrabajadas);
 }
 
-void Planilla::GenerarPlanilla() { // leer cada linea, generar un nodo, añadirlo al arbol
-    this->laPlanilla = new Supervisor(this->entradaPlanilla); 
-
-    //recorrer cada vector de registros y asignarlos mediante el id a los empleados del arbol mapeados  
+void Planilla::GenerarPlanilla() { // leer cada linea, generar un nodo, añadirlo al arbol, generar el costo de la planilla
+    string linea;
+    int id{0};
+    string nombre{};
+    string apellido{};
+    string correo{};
+    int tipo{0};
+    int idSupervisor{0};
     
-    //this->subtotal = this->CalcularSubtotalCostoPlanilla();
-    //this->impuestosRetenidos = this->CalcularImpuestosRetenidos();
-    //this->total = this->CalcularTotalCostoPlanilla();
+    while(getline(*this->entradaPlanilla, linea)) {
+        istringstream stream(linea);
+        stream >> id >> nombre >> apellido >> correo >> tipo >> idSupervisor;
+        this->AgregarEmpleado(id, nombre, apellido, correo,  tipo, idSupervisor);  
+        this->totalPersonal ++;
+    } 
+    this->subtotal = this->CalcularSubtotalCostoPlanilla();
+    this->impuestosRetenidos = this->CalcularImpuestosRetenidos();
+    this->total = this->CalcularTotalCostoPlanilla();
 }
+
+void Planilla::AgregarEmpleado(int idEmpleadoNuevo, string nombreEmpleadoNuevo, string apellidoEmpleadoNuevo, string emailEmpleadoNuevo,  int tipoEmpleadoNuevo, int idSupervisorEmpleadoNuevo){
+    
+    if(tipoEmpleadoNuevo == 1) { // empleado de nomina        
+        EmpleadoNomina *en = new EmpleadoNomina(idEmpleadoNuevo, nombreEmpleadoNuevo, apellidoEmpleadoNuevo, emailEmpleadoNuevo,  tipoEmpleadoNuevo, idSupervisorEmpleadoNuevo);
+        en->AsignarRegistroPago(this->laNomina->ObtenerRegistro(en->ObtenerId()));
+        this->arbolEmpleados.insert(pair<int, Empleado*>(en->ObtenerId(), en));
+        en->AsignarSupervisor(this->arbolEmpleados.at(en->ObtenerIdSupervisor()));
+        this->arbolEmpleados.at(en->ObtenerIdSupervisor())->AsignarEmpleado(en);
+        this->arbolEmpleados.insert(pair<int, Empleado*>(en->ObtenerIdSupervisor(), en));     
+        cout << en->ObtenerRegistroPago()  << endl;               
+    
+    } else { // empleado por hora
+        EmpleadoPorHora *eph = new EmpleadoPorHora(idEmpleadoNuevo, nombreEmpleadoNuevo, apellidoEmpleadoNuevo, emailEmpleadoNuevo,  tipoEmpleadoNuevo, idSupervisorEmpleadoNuevo);
+        eph->AgregarRegistroHorasEnMes(this->lasHorasTrabajadas->ObtenerRegistroHoras(eph->ObtenerId()));
+        this->arbolEmpleados.insert(pair<int, Empleado*>(eph->ObtenerId(), eph));
+        eph->AsignarSupervisor(this->arbolEmpleados.at(eph->ObtenerIdSupervisor()));
+        this->arbolEmpleados.at(eph->ObtenerIdSupervisor())->AsignarEmpleado(eph);
+        this->arbolEmpleados.insert(pair<int, Empleado*>(eph->ObtenerIdSupervisor(), eph));     
+        cout << eph->ObtenerRegistroHorasEnMes() << endl;        
+    }     
+}  
 
 float Planilla::CalcularTotalCostoPlanilla(){
     float costoTotal = 0;
@@ -61,10 +94,6 @@ float Planilla::CalcularImpuestosRetenidos(){
     return totalImpuestos;
 }
 
-Empleado *Planilla::ObtenerDirector(){
-    return this->laPlanilla->ObtenerSupervisor();
-}
-
 float Planilla::ObtenerSubtotal(){
     return this->subtotal;
 }
@@ -77,19 +106,21 @@ float Planilla::ObtenerImpuestosRetenidos(){
     return this->impuestosRetenidos;
 }
 
-Nomina *Planilla::ObtenerNomina(){
-    return this->laNomina;
+int Planilla::ObtenerTotalPersonal() {
+    return this->totalPersonal;
 }
 
-HorasTrabajadas* Planilla::ObtenerRegistroHorasTrabjadas(){
-    return this->lasHorasTrabajadas;
-}
         
-ostream& operator << (ostream &o, Planilla *unaPlanilla){    
-  /*for(int n = 1; n < unaPlanilla->ObtenerTotalPersonas()-1; n++){
-        for(Empleado* emp1 : unaPlanilla->laPlanilla.at(n)->ObtenerEmpleados()){
-            o << emp1->ObtenerId() << ", " << emp1->ObtenerNombre() << ", " << emp1->ObtenerApellido() << ", " << emp1->ObtenerSupervisor()->ObtenerNombre() << ", " << emp1->ObtenerSupervisor()->ObtenerApellido() << ", " << emp1->CalculoPagoNeto() << endl;
-        }
-    }*/
+ostream &operator << (ostream &o, Planilla *unaPlanilla){  
+
+    for(int n = 1; n < 600; n++){
+
+       // o << (ObtenerMapa().at(n))->ObtenerId(); //<< ", " << emp1->ObtenerNombre() << ", " << emp1->ObtenerApellido() << ", " << emp1->ObtenerSupervisor()->ObtenerNombre() << ", " << emp1->ObtenerSupervisor()->ObtenerApellido()  << endl; //<< ", " << emp1->CalculoPagoNeto()
+        
+    }
     return o;
 }
+
+ map <int, Empleado*> Planilla::ObtenerMapa() {
+     return this->arbolEmpleados;
+ }

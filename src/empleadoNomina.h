@@ -15,13 +15,14 @@ RegistroPago *registroPagoBruto;
         
 public:
     
-    EmpleadoNomina(int idEmpleado, string nombreEmpleado, string apellidoEmpleado, string emailEmpleado,  int tipoEmpleado, int idSupervisorEmpleado);
+    EmpleadoNomina(int idEmpleadoNuevo, string nombreEmpleadoNuevo, string apellidoEmpleadoNuevo, string emailEmpleadoNuevo,  int tipoEmpleadoNuevo, int idSupervisorEmpleadoNuevo);
     ~EmpleadoNomina();
 
     float ObtenerSalarioBruto();
     void AgregarRegistroPago(RegistroPago *registro);
     virtual float CalculoPagoNeto();  
     RegistroPago* ObtenerRegistroPago();
+    void AsignarRegistroPago(RegistroPago *registroPagoNuevo);
           
 };
 

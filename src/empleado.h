@@ -13,7 +13,6 @@ class Empleado // persona
 
 protected:
 
-    istream *streamEntrada;
     int idEmpleado;
     string nombreEmpleado;
     string apellidoEmpleado;

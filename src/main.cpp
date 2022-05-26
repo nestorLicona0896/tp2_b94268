@@ -20,7 +20,6 @@ int main (){
         cerr << "Error leyendo archivo horastrabajadas.txt" << std::endl;
         return -1;
     }
-    //HorasTrabajadas *ht1 = new HorasTrabajadas(&ifs);
     
     ifstream ifs2("nomina.txt", std::ifstream::in); // Por default abriendo como texto
     if (!ifs2.is_open())
@@ -28,7 +27,6 @@ int main (){
         cerr << "Error leyendo archivo nomina.txt" << std::endl;
         return -1;
     }
-    //Nomina *n1 = new Nomina(&ifs2);    
 
     ifstream ifs3("personas.txt", std::ifstream::in); // Por default abriendo como texto
     if (!ifs3.is_open())
@@ -46,12 +44,10 @@ int main (){
         cerr << "Error abriendo archivo reporte.csv" << endl;
     }    
 
-    //reporte << planilla1;
+    cout << planilla1;
     
     reporte.close();
       
-    //delete n1;
-    //delete ht1;
     delete planilla1; 
 
     return 0;

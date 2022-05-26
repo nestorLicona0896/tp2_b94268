@@ -2,9 +2,10 @@
 #define PLANILLA_H
 
 #include <map>
-#include <vector>
 
-#include "supervisor.h"
+#include "empleado.h"
+#include "empleadoNomina.h"
+#include "empleadoPorHora.h"
 #include "horasTrabajadas.h"
 #include "nomina.h"
 
@@ -18,7 +19,13 @@ class Planilla { // CostoPlanilla
         
     Nomina *laNomina; // registros para los empleados por nomina
     HorasTrabajadas *lasHorasTrabajadas;   // registro para los empleados contratados por hora
-    Supervisor *laPlanilla; // arbol
+    
+
+    // arbol
+    map <int, Empleado*> arbolEmpleados;
+    int totalPersonal;
+
+
      
     float subtotal; // total en salario bruto a cancelar    
     float impuestosRetenidos; // la suma de impuestos retenidos
@@ -42,18 +49,15 @@ class Planilla { // CostoPlanilla
         float CalcularSubtotalCostoPlanilla();
         float CalcularImpuestosRetenidos();
 
-        Empleado *ObtenerDirector();
         float ObtenerSubtotal();
         float ObtenerTotal();
         float ObtenerImpuestosRetenidos();
+        int ObtenerTotalPersonal();
 
-        Nomina *ObtenerNomina();
-        HorasTrabajadas* ObtenerRegistroHorasTrabjadas();
-
-        void AgregarEmpleadoEnNomina(istream *entrada);
-        void AgregarProfesionalPorHoras(istream *entrada);
-
-        friend ostream& operator << (ostream &o, Planilla *unaPlanilla);       
+        void AgregarEmpleado(int idEmpleadoNuevo, string nombreEmpleadoNuevo, string apellidoEmpleadoNuevo, string emailEmpleadoNuevo,  int tipoEmpleadoNuevo, int idSupervisorEmpleadoNuevo);
+        
+        map <int, Empleado*> ObtenerMapa();
+        friend ostream &operator << (ostream &o, Planilla *laPlanilla);       
 
 };
 

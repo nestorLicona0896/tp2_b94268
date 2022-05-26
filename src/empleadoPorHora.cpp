@@ -3,13 +3,13 @@
 using namespace std;
 
 EmpleadoPorHora::EmpleadoPorHora(int idEmpleadoNuevo, string nombreEmpleadoNuevo, string apellidoEmpleadoNuevo, string emailEmpleadoNuevo,  int tipoEmpleadoNuevo, int idSupervisorEmpleadoNuevo) {
+    
     this->idEmpleado = idEmpleadoNuevo;
     this->nombreEmpleado = nombreEmpleadoNuevo;
     this-> apellidoEmpleado = apellidoEmpleadoNuevo;
     this->emailEmpleado = emailEmpleadoNuevo;
     this->tipoEmpleado = tipoEmpleadoNuevo;
-    this->idSupervisorEmpleado = idSupervisorEmpleadoNuevo;
-    
+    this->idSupervisorEmpleado = idSupervisorEmpleadoNuevo;     
 }
 
 EmpleadoPorHora::~EmpleadoPorHora()
@@ -42,4 +42,8 @@ float EmpleadoPorHora::CalculoPagoNeto()
 RegistroHora *EmpleadoPorHora::ObtenerRegistroHorasEnMes()
 {
     return this->registroHoras;
+}
+
+void EmpleadoPorHora::AgregarRegistroHorasEnMes(RegistroHora  *nuevoRegistro) {
+    this->registroHoras = nuevoRegistro;
 }
