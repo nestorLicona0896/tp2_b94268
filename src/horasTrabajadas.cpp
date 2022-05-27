@@ -5,7 +5,8 @@ using namespace std;
 
 HorasTrabajadas::HorasTrabajadas(istream *entradaHorasTrabajadas) {
     this->entradaHoras = entradaHorasTrabajadas;
-    this->GenerarRegistros();  
+    this->GenerarRegistros(); 
+    this->total = this->ObtenerTotal(); 
 }
 
 HorasTrabajadas::~HorasTrabajadas(){
@@ -39,20 +40,24 @@ vector <RegistroHora*> HorasTrabajadas::ObtenerRegistrosHoras(){
 }
 
 float HorasTrabajadas::ObtenerTotal() {
-    float total = 0;
+    float totalCostoHoras = 0;
     for(RegistroHora *rh : this->horasTrabajadas) {
-        total += (rh->ObtenerMontoPorHora() * rh->ObtenerHorasAcumuladas());
+        totalCostoHoras += (rh->ObtenerMontoPorHora() * rh->ObtenerHorasAcumuladas());
     }
-    return total;
+    return totalCostoHoras;
 }
 
 void HorasTrabajadas::GenerarRegistros(){
     string linea;
-    while(getline(*(this->entradaHoras), linea))
+    while(getline(*this->entradaHoras, linea))
     {
         istringstream streamHoras(linea);
         RegistroHora *rh = new RegistroHora(&streamHoras);     
         this->AgregarRegistro(rh);
         //cout << rh << endl;
     }
+}
+
+float HorasTrabajadas::ObtenerTotalCostoHoras(){
+    return this->total;
 }

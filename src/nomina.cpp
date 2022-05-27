@@ -7,6 +7,8 @@ Nomina::Nomina(istream *entradaNominaNueva)
 {
     this->entradaNomina = entradaNominaNueva;
     this->GenerarNomina();
+    this->totalNomina = this->ObtenerTotalNomina();
+    this->totalRetencion = this->ObtenerTotalRetencion();
 }
 
 Nomina::~Nomina()
@@ -47,9 +49,10 @@ vector<RegistroPago *> Nomina::ObtenerRegistros()
 float Nomina::ObtenerTotalNomina()
 {
     float total = 0;
+    float impuesto = 0.07;
     for (RegistroPago *rp : this->nomina)
     {
-        total += (rp->ObtenerPagoBruto() - (rp->ObtenerPagoBruto() * 0.07));
+        total += (rp->ObtenerPagoBruto() - (rp->ObtenerPagoBruto() * impuesto));
     }
     return total;
 }
@@ -76,3 +79,11 @@ void Nomina::GenerarNomina()
         //cout << rp << endl;
     }
 }
+
+float Nomina::ObtenerTotalCostoNomina() {
+    return this->totalNomina;
+}      
+
+float Nomina::ObtenerTotalRetencionImpuestos(){
+    return this->totalRetencion;
+} 

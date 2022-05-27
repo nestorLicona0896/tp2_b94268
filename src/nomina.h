@@ -20,10 +20,15 @@ class Nomina {
 
         void AgregarRegistro(RegistroPago *registro);
         RegistroPago* ObtenerRegistro(int id);
-        vector <RegistroPago*> ObtenerRegistros();    
-        float ObtenerTotalNomina();
+        vector <RegistroPago*> ObtenerRegistros();   
+
+        float ObtenerTotalCostoNomina();        
+        float ObtenerTotalRetencionImpuestos(); 
+        float ObtenerTotalNomina();        
         float ObtenerTotalRetencion();
+
         void GenerarNomina();
+        
 };
 
 #endif

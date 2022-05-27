@@ -44,7 +44,7 @@ int main (){
         cerr << "Error abriendo archivo reporte.csv" << endl;
     }    
 
-    cout << planilla1;
+    reporte << planilla1;
     
     reporte.close();
       
